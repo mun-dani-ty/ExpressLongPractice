@@ -1,5 +1,20 @@
 const express = require('express');
+require('express-async-errors');  //async error handler
 const app = express();
+
+// LOGGER MIDDLEWARE
+app.use((req, res, next) => {
+  console.log("Request method", req.method);
+  console.log("Request url", req.url);
+  next();
+});
+
+// JSON parsing
+app.use(express.json());
+
+
+// STATIC RESOURCE ASSETS
+app.use('/static', express.static("assets"));
 
 // For testing purposes, GET /
 app.get('/', (req, res) => {
